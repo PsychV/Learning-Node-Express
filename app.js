@@ -1,8 +1,16 @@
-let arr = [1, [2, [3, [4]]]];
-console.log(arr);
+const { readFile } = require('fs');
+const { reject } = require('lodash');
 
-const _ = require('lodash');
+const getText = (path) => {
+  return new Promise((resolve, reject) => {
+    readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(data)
+      }
+    })
+  })
+}
 
-arr = _.flatMapDeep(arr);
-
-console.log(arr);
+getText('./content/subfolder/something.txt');
